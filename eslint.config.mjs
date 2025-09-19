@@ -18,13 +18,13 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
-      "app/generated/**",   // ✅ Prisma generated files ignore
-      "prisma/**",          // ✅ Prisma client ignore
+      "app/generated/**",
+      "prisma/**",
     ],
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-require-imports": "off",  // 
       "@typescript-eslint/no-this-alias": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
