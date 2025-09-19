@@ -1,12 +1,43 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+
+interface WeatherMain {
+  temp: number;
+  feels_like: number;
+  humidity: number;
+}
+
+interface WeatherWeather {
+  description: string;
+  icon: string;
+}
+
+interface CurrentWeather {
+  name: string;
+  sys?: { country: string };
+  main: WeatherMain;
+  weather: WeatherWeather[];
+  wind: { speed: number };
+}
+
+interface ForecastItem {
+  dt_txt: string;
+  main: { temp: number };
+  weather: WeatherWeather[];
+}
+
+interface WeatherData {
+  current: CurrentWeather;
+  forecast: { list: ForecastItem[] };
+}
 
 export default function Home() {
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [city, setCity] = useState<string>("");
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const getWeather = async () => {
     try {
@@ -22,17 +53,17 @@ export default function Home() {
       } else {
         setError(data.error || "Failed to fetch weather");
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  const getDailyForecast = (forecastData: any) => {
+  const getDailyForecast = (forecastData: WeatherData["forecast"]) => {
     if (!forecastData) return [];
-    const daily: any = {};
-    forecastData.list.forEach((item: any) => {
+    const daily: Record<string, ForecastItem> = {};
+    forecastData.list.forEach((item) => {
       const date = new Date(item.dt_txt).toLocaleDateString("en-US", {
         weekday: "short",
       });
@@ -102,11 +133,15 @@ export default function Home() {
                 day: "numeric",
               })}
             </p>
-            <img
+
+            <Image
               src={`https://openweathermap.org/img/wn/${weather.current.weather?.[0]?.icon}@4x.png`}
               alt="Weather Icon"
+              width={150}
+              height={150}
               className="mx-auto drop-shadow-lg"
             />
+
             <p className="text-6xl font-bold text-gray-900 mb-2">
               {Math.round(weather.current.main?.temp)}°C
             </p>
@@ -135,7 +170,7 @@ export default function Home() {
               5-Day Forecast
             </h3>
             <div className="grid grid-cols-5 gap-4">
-              {getDailyForecast(weather.forecast).map((day: any, i) => (
+              {getDailyForecast(weather.forecast).map((day, i) => (
                 <div
                   key={i}
                   className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow"
@@ -145,9 +180,11 @@ export default function Home() {
                       weekday: "short",
                     })}
                   </span>
-                  <img
+                  <Image
                     src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
                     alt="icon"
+                    width={50}
+                    height={50}
                   />
                   <span className="text-gray-900 font-semibold">
                     {Math.round(day.main?.temp)}°C
