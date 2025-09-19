@@ -168,32 +168,23 @@ export default function Home() {
               5-Day Forecast
             </h3>
             <div className="flex justify-center gap-4">
-              {getDailyForecast(weather.forecast).map((day, i) => (
-                <div
-                  key={i}
-                  className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow min-w-[80px]"
-                >
-                  <span className="font-medium text-gray-700 mb-1">
-                    {new Date(day.dt_txt).toLocaleDateString("en-US", {
-                      weekday: "short",
-                    })}
-                  </span>
-                  <Image
-                    src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
-                    alt="icon"
-                    width={50}
-                    height={50}
-                    className="mb-1"
-                  />
-                  <span className="text-gray-900 font-semibold">
-                    {Math.round(day.main?.temp)}°C
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+  {getDailyForecast(weather.forecast).map((day, i) => (
+    <div
+      key={i}
+      className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-row items-center gap-2 shadow min-w-[200px]"
+    >
+      <span className="font-medium text-gray-700">
+        {new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}
+      </span>
+      <Image
+        src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
+        alt="icon"
+        width={50}
+        height={50}
+      />
+      <span className="text-gray-900 font-semibold">
+        {Math.round(day.main?.temp)}°C
+      </span>
     </div>
-  );
-}
+  ))}
+</div>
