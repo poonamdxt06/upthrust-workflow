@@ -184,7 +184,14 @@ export default function Home() {
       />
       <span className="text-gray-900 font-semibold">
         {Math.round(day.main?.temp)}°C
-      </span>
+     </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  ))}
-</div>
+  );
+}
+
