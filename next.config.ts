@@ -5,10 +5,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'example.com', // yahan apni image domain dalni hai
+        hostname: 'images.unsplash.com', // example domain
         pathname: '/**',
       },
-      // agar aur domains hain, yahan add karo
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com', // GitHub images
+        pathname: '/**',
+      },
+      // Add more domains as needed
     ],
   },
 };
