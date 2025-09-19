@@ -67,9 +67,7 @@ export default function Home() {
       const date = new Date(item.dt_txt).toLocaleDateString("en-US", {
         weekday: "short",
       });
-      if (!daily[date]) {
-        daily[date] = item;
-      }
+      if (!daily[date]) daily[date] = item;
     });
     return Object.values(daily).slice(0, 5);
   };
@@ -79,7 +77,7 @@ export default function Home() {
       className="min-h-screen flex flex-col items-center justify-center px-6 relative"
       style={{
         backgroundImage:
-        "url('https://png.pngtree.com/thumb_back/fh260/back_our/20190628/ourmid/pngtree-hand-drawn-blue-sky-white-clouds-weather-forecast-illustration-background-image_270899.jpg')",      
+          "url('https://img.freepik.com/premium-vector/sun-shines-blue-sky-with-clouds-green-mountains-with-space-sky-paper-cut-art-craft_1272968-596.jpg?semt=ais_incoming&w=740&q=80')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -87,13 +85,13 @@ export default function Home() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/50 to-indigo-900/70 backdrop-blur-sm"></div>
 
-      <div className="relative z-10 w-full max-w-2xl text-center">
-        <h1 className="text-4xl font-extrabold text-white mb-8 drop-shadow-lg">
+      <div className="relative z-10 w-full max-w-2xl flex flex-col items-center">
+        <h1 className="text-4xl font-extrabold text-white mb-8 text-center drop-shadow-lg">
           🌦 Weather Dashboard
         </h1>
 
         {/* Search Box */}
-        <div className="flex gap-3 mb-8 bg-white/90 rounded-2xl shadow-lg p-3 justify-center">
+        <div className="flex gap-3 mb-8 bg-white/90 rounded-2xl shadow-lg p-3 w-full">
           <input
             type="text"
             placeholder="Search city..."
@@ -111,15 +109,17 @@ export default function Home() {
 
         {/* Loading */}
         {loading && (
-          <p className="text-white text-lg animate-pulse">Fetching weather...</p>
+          <p className="text-center text-white text-lg animate-pulse">
+            Fetching weather...
+          </p>
         )}
 
         {/* Error */}
-        {error && <p className="text-red-200">{error}</p>}
+        {error && <p className="text-red-200 text-center">{error}</p>}
 
         {/* Weather Card */}
         {weather && (
-          <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center">
+          <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center w-full">
             {/* Current Weather */}
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
               {weather.current.name}, {weather.current.sys?.country}
@@ -132,15 +132,13 @@ export default function Home() {
               })}
             </p>
 
-            {/* Current Weather Icon */}
-            <div className="flex justify-center mb-4">
-              <Image
-                src={`https://openweathermap.org/img/wn/${weather.current.weather?.[0]?.icon}@4x.png`}
-                alt="Weather Icon"
-                width={150}
-                height={150}
-              />
-            </div>
+            <Image
+              src={`https://openweathermap.org/img/wn/${weather.current.weather?.[0]?.icon}@4x.png`}
+              alt="Weather Icon"
+              width={150}
+              height={150}
+              className="mx-auto drop-shadow-lg"
+            />
 
             <p className="text-6xl font-bold text-gray-900 mb-2">
               {Math.round(weather.current.main?.temp)}°C
@@ -169,25 +167,24 @@ export default function Home() {
             <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-800">
               5-Day Forecast
             </h3>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="flex justify-center gap-4">
               {getDailyForecast(weather.forecast).map((day, i) => (
                 <div
                   key={i}
-                  className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow"
+                  className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow min-w-[80px]"
                 >
-                  <span className="font-medium text-gray-700 mb-2">
+                  <span className="font-medium text-gray-700 mb-1">
                     {new Date(day.dt_txt).toLocaleDateString("en-US", {
                       weekday: "short",
                     })}
                   </span>
-                  <div className="flex justify-center mb-2">
-                    <Image
-                      src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
-                      alt="icon"
-                      width={50}
-                      height={50}
-                    />
-                  </div>
+                  <Image
+                    src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
+                    alt="icon"
+                    width={50}
+                    height={50}
+                    className="mb-1"
+                  />
                   <span className="text-gray-900 font-semibold">
                     {Math.round(day.main?.temp)}°C
                   </span>
