@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "app/generated/**",   // 👈 Prisma generated code ignore
+      "prisma/**",          // 👈 Prisma client bhi ignore
     ],
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
