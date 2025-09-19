@@ -76,7 +76,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-6"
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative"
       style={{
         backgroundImage:
           "url('https://img.freepik.com/premium-vector/sun-shines-blue-sky-with-clouds-green-mountains-with-space-sky-paper-cut-art-craft_1272968-596.jpg?semt=ais_incoming&w=740&q=80')",
@@ -87,13 +87,13 @@ export default function Home() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/50 to-indigo-900/70 backdrop-blur-sm"></div>
 
-      <div className="relative z-10 w-full max-w-2xl">
+      <div className="relative z-10 w-full max-w-2xl flex flex-col items-center">
         <h1 className="text-4xl font-extrabold text-white mb-8 text-center drop-shadow-lg">
           🌦 Weather Dashboard
         </h1>
 
         {/* Search Box */}
-        <div className="flex gap-3 mb-8 bg-white/90 rounded-2xl shadow-lg p-3">
+        <div className="flex gap-3 mb-8 bg-white/90 rounded-2xl shadow-lg p-3 w-full max-w-md">
           <input
             type="text"
             placeholder="Search city..."
@@ -121,7 +121,7 @@ export default function Home() {
 
         {/* Weather Card */}
         {weather && (
-          <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center">
+          <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center mx-auto w-full">
             {/* Current Weather */}
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
               {weather.current.name}, {weather.current.sys?.country}
@@ -166,10 +166,10 @@ export default function Home() {
             </div>
 
             {/* Forecast */}
-            <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-800">
+            <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-800 text-center">
               5-Day Forecast
             </h3>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-4 justify-items-center text-center">
               {getDailyForecast(weather.forecast).map((day, i) => (
                 <div
                   key={i}
