@@ -79,7 +79,8 @@ export default function Home() {
       className="min-h-screen flex flex-col items-center justify-center px-6 relative"
       style={{
         backgroundImage:
-"url('https://png.pngtree.com/thumb_back/fh260/back_our/20190628/ourmid/pngtree-hand-drawn-blue-sky-white-clouds-weather-forecast-illustration-background-image_270899.jpg        backgroundSize: "cover",')
+"url('https://png.pngtree.com/thumb_back/fh260/back_our/20190628/ourmid/pngtree-hand-drawn-blue-sky-white-clouds-weather-forecast-illustration-background-image_270899.jpg')      
+          backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
