@@ -63,6 +63,8 @@ Deployment
 
 This app can be deployed easily on Render or Vercel:
 
+Render url: https://upthrust-workflow.onrender.com 
+
 # Make sure your environment variables (like API keys) are set on the platform.
 
 # Build and deploy using:
