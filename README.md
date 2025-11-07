@@ -37,7 +37,7 @@ Getting Started
 
 Clone the repository
 
-git clone https://github.com/your-username/upthrust-workflow.git
+git clone https://github.com/poonamdxt06/upthrust-workflow.git
 cd upthrust-workflow
 
 
