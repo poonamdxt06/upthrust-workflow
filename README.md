@@ -2,7 +2,7 @@
 
 A modern, responsive weather dashboard built with Next.js, TypeScript, and Tailwind CSS that allows users to search any city and get the current weather and a 5-day forecast.
 
-Live Demo: (Add your deployed Render/GitHub Pages link here)
+Live Demo: (https://upthrust-workflow.onrender.com)
 
 Features
 
