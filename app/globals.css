@@ -4,14 +4,14 @@
 @import url('https://unpkg.com/tailwindcss@3.3.3/utilities.css');
 
 :root {
-  --background: #040404;
-  --foreground: #171717;
+  --background: #f0e2e2e2;
+  --foreground: #aea5a5;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #060404;
+    --background: #c98888;
+    --foreground: #080808;
   }
 }
 

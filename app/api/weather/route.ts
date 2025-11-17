@@ -6,15 +6,30 @@ export async function GET(req: Request) {
     const city = searchParams.get("city") || "Delhi";
 
     const apiKey = process.env.WEATHER_API_KEY;
-    const baseUrl = process.env.NEXT_PUBLIC_WEATHER_API_URL;
 
-    // Current weather
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "Missing Weather API Key" },
+        { status: 500 }
+      );
+    }
+
+    const baseUrl = "https://api.openweathermap.org/data/2.5";
+
+    // Fetch current weather
     const currentRes = await fetch(
       `${baseUrl}/weather?q=${city}&units=metric&appid=${apiKey}`
     );
     const currentData = await currentRes.json();
 
-    // Forecast (5-day / 3-hour)
+    if (currentData.cod !== 200) {
+      return NextResponse.json(
+        { error: currentData.message },
+        { status: currentData.cod }
+      );
+    }
+
+    // Fetch forecast
     const forecastRes = await fetch(
       `${baseUrl}/forecast?q=${city}&units=metric&appid=${apiKey}`
     );
@@ -31,4 +46,3 @@ export async function GET(req: Request) {
     );
   }
 }
-      // Remove the following JSX code; API route files should only contain server-side logic.

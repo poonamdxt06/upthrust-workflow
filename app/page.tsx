@@ -1,64 +1,105 @@
 "use client";
 
+import WeatherCard from "./components/WeatherCard";
 import { useState } from "react";
+
+const getBackgroundImage = (weatherCode: string) => {
+  switch (weatherCode) {
+    case "01d":
+    case "01n":
+      return "/sunny.jpg";       // Clear Sky
+    case "02d":
+    case "02n":
+    case "03d":
+    case "03n":
+      return "/cloudy.jpg";      // Clouds
+    case "04d":
+    case "04n":
+      return "/dark-clouds.jpg"; // Overcast
+    case "09d":
+    case "09n":
+    case "10d":
+    case "10n":
+      return "/rainy.jpg";        // Rain
+    case "11d":
+    case "11n":
+      return "/storm.jpg";       // Thunderstorm
+    case "13d":
+    case "13n":
+      return "/snow.jpg";        // Snow  
+    case "50d":
+    case "50n":
+      return "/haze.jpg";        // Fog / Mist  
+    default:
+      return "/default.jpg";
+  }
+};
+
 
 export default function Home() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<any>(null);
+  const [weatherData, setWeatherData] = useState<any>(null);
+  const [forecastData, setForecastData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const getWeather = async () => {
     try {
+      if (!city.trim()) return;
       setLoading(true);
       setError("");
-      setWeather(null);
 
       const res = await fetch(`/api/weather?city=${city}`);
       const data = await res.json();
 
-      if (res.ok) {
-        setWeather(data);
-      } else {
-        setError(data.error || "Failed to fetch weather");
+      if (!res.ok) {
+        setError(data.error || "Unable to fetch data");
+        return;
       }
+
+      // API returns: { current, forecast }
+      setWeatherData(data.current);
+      setForecastData(data.forecast);
     } catch (err) {
-      setError("Something went wrong");
+      setError("Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
 
-  const getDailyForecast = (forecastData: any) => {
+  const getDailyForecast = () => {
     if (!forecastData) return [];
+
     const daily: any = {};
     forecastData.list.forEach((item: any) => {
       const date = new Date(item.dt_txt).toLocaleDateString("en-US", {
         weekday: "short",
       });
-      if (!daily[date]) {
-        daily[date] = item;
-      }
+      if (!daily[date]) daily[date] = item;
     });
+
     return Object.values(daily).slice(0, 5);
   };
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-6"
-      style={{
-        backgroundImage:
-          "url('https://img.freepik.com/premium-vector/sun-shines-blue-sky-with-clouds-green-mountains-with-space-sky-paper-cut-art-craft_1272968-596.jpg?semt=ais_incoming&w=740&q=80')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+  className="min-h-screen flex flex-col items-center justify-center px-6"
+  style={{
+    backgroundImage: weatherData
+      ? `url('${getBackgroundImage(weatherData.weather?.[0]?.icon)}')`
+      : "url('/default.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    transition: "0.4s ease",
+  }}
+>
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/50 to-indigo-900/70 backdrop-blur-sm"></div>
 
       <div className="relative z-10 w-full max-w-2xl">
         <h1 className="text-4xl font-extrabold text-white mb-8 text-center drop-shadow-lg">
-          🌦 Weather Dashboard
+          🌦️ Weather
         </h1>
 
         {/* Search Box */}
@@ -78,64 +119,27 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Loading */}
         {loading && (
           <p className="text-center text-white text-lg animate-pulse">
             Fetching weather...
           </p>
         )}
 
-        {/* Error */}
         {error && <p className="text-red-200 text-center">{error}</p>}
 
-        {/* Weather Card */}
-        {weather && (
+        {/* FULL WEATHER CARD AREA */}
+        {weatherData && (
           <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center">
-            {/* Current Weather */}
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              {weather.current.name}, {weather.current.sys?.country}
-            </h2>
-            <p className="text-gray-500 text-sm mb-4">
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            <img
-              src={`https://openweathermap.org/img/wn/${weather.current.weather?.[0]?.icon}@4x.png`}
-              alt="Weather Icon"
-              className="mx-auto drop-shadow-lg"
-            />
-            <p className="text-6xl font-bold text-gray-900 mb-2">
-              {Math.round(weather.current.main?.temp)}°C
-            </p>
-            <p className="text-lg text-gray-600 capitalize">
-              {weather.current.weather?.[0]?.description}
-            </p>
-
-            {/* Extra Info */}
-            <div className="grid grid-cols-3 gap-6 mt-6 text-sm text-gray-700 text-center">
-              <div className="flex flex-col items-center">
-                <span className="font-medium">Feels Like</span>
-                <div>{Math.round(weather.current.main?.feels_like)}°C</div>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="font-medium">Humidity</span>
-                <div>{weather.current.main?.humidity}%</div>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="font-medium">Wind</span>
-                <div>{weather.current.wind?.speed} m/s</div>
-              </div>
-            </div>
+            
+            {/* Show WeatherCard */}
+            <WeatherCard weather={weatherData} />
 
             {/* Forecast */}
             <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-800">
               5-Day Forecast
             </h3>
             <div className="grid grid-cols-5 gap-4">
-              {getDailyForecast(weather.forecast).map((day: any, i) => (
+              {getDailyForecast().map((day: any, i) => (
                 <div
                   key={i}
                   className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow"
