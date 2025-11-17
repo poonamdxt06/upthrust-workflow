@@ -1,40 +1,113 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+=======
+ **🌤️ Weather Dashboard**
+>>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
 
-## Getting Started
+A modern, responsive weather dashboard built with Next.js, TypeScript, and Tailwind CSS that allows users to search any city and get the current weather and a 5-day forecast.
 
-First, run the development server:
+Live Demo: (https://upthrust-workflow.onrender.com)
 
-```bash
+Features
+
+# 🔍 Search for any city worldwide.
+
+# ☀️ Display current weather including temperature, feels like, humidity, wind speed, and weather description.
+
+# 📅 5-day forecast with daily temperature and weather icon.
+
+# 🌈 Responsive, clean, and visually appealing design with background images and gradient overlays.
+
+# ⚡ Loading and error handling for smooth user experience.
+
+Screenshots
+
+
+(Replace with actual screenshot URL)
+
+Technologies Used
+
+# Next.js 15 – React framework for server-side rendering and static site generation.
+
+# TypeScript – Type-safe JavaScript for more reliable code.
+
+# Tailwind CSS – Utility-first CSS framework for responsive and clean UI.
+
+# OpenWeatherMap API – Fetch real-time weather data.
+
+# Next/Image – Optimized image loading for weather icons.
+
+Getting Started
+
+Clone the repository
+
+git clone https://github.com/poonamdxt06/upthrust-workflow.git
+cd upthrust-workflow
+
+
+Install dependencies
+
+npm install
+
+
+Create a .env file in the project root and add your API key(s):
+
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+
+
+Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000
+ to view the app.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deployment
 
-## Learn More
+This app can be deployed easily on Render or Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+Render url: https://upthrust-workflow.onrender.com 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Make sure your environment variables (like API keys) are set on the platform.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Build and deploy using:
 
-## Deploy on Vercel
+npm run build
+npm run start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project Structure
+├── app/               # Main app folder
+│   ├── api/weather.ts # API route for fetching weather
+│   └── page.tsx       # Home page component
+├── public/            # Static assets
+├── prisma/            # Prisma ORM (optional for future expansion)
+├── package.json
+├── tsconfig.json
+└── tailwind.config.js
 
+<<<<<<< HEAD
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 =======
 # upthrust-workflow
 >>>>>>> 8536fad2d1e76b2c00fd93053ca7c49aa3cc730c
+=======
+Contributing
+
+Contributions are welcome!
+
+# Fork the repo
+
+# Create a new branch: git checkout -b feature-name
+
+# Commit your changes: git commit -m 'Add some feature'
+
+# Push to the branch: git push origin feature-name
+
+# Open a pull request
+
+License
+
+This project is MIT Licensed.
+>>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
