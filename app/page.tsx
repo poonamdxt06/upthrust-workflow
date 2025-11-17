@@ -38,48 +38,39 @@ const getBackgroundImage = (weatherCode: string) => {
   switch (weatherCode) {
     case "01d":
     case "01n":
-      return "/sunny.jpg";       // Clear Sky
+      return "/sunny.jpg";
     case "02d":
     case "02n":
     case "03d":
     case "03n":
-      return "/cloudy.jpg";      // Clouds
+      return "/cloudy.jpg";
     case "04d":
     case "04n":
-      return "/dark-clouds.jpg"; // Overcast
+      return "/dark-clouds.jpg";
     case "09d":
     case "09n":
     case "10d":
     case "10n":
-      return "/rainy.jpg";        // Rain
+      return "/rainy.jpg";
     case "11d":
     case "11n":
-      return "/storm.jpg";       // Thunderstorm
+      return "/storm.jpg";
     case "13d":
     case "13n":
-      return "/snow.jpg";        // Snow  
+      return "/snow.jpg";
     case "50d":
     case "50n":
-      return "/haze.jpg";        // Fog / Mist  
+      return "/haze.jpg";
     default:
       return "/default.jpg";
   }
 };
 
-
 export default function Home() {
-<<<<<<< HEAD
-  const [city, setCity] = useState("");
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [forecastData, setForecastData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-=======
   const [city, setCity] = useState<string>("");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
 
   const getWeather = async () => {
     try {
@@ -94,34 +85,20 @@ export default function Home() {
         setError(data.error || "Unable to fetch data");
         return;
       }
-<<<<<<< HEAD
 
-      // API returns: { current, forecast }
-      setWeatherData(data.current);
-      setForecastData(data.forecast);
-    } catch (err) {
-      setError("Something went wrong!");
-=======
+      setWeather(data);
     } catch {
       setError("Something went wrong");
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
     } finally {
       setLoading(false);
     }
   };
 
-<<<<<<< HEAD
-  const getDailyForecast = () => {
-    if (!forecastData) return [];
-
-    const daily: any = {};
-    forecastData.list.forEach((item: any) => {
-=======
   const getDailyForecast = (forecastData: WeatherData["forecast"]) => {
     if (!forecastData) return [];
     const daily: Record<string, ForecastItem> = {};
+
     forecastData.list.forEach((item) => {
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
       const date = new Date(item.dt_txt).toLocaleDateString("en-US", {
         weekday: "short",
       });
@@ -133,29 +110,16 @@ export default function Home() {
 
   return (
     <div
-<<<<<<< HEAD
-  className="min-h-screen flex flex-col items-center justify-center px-6"
-  style={{
-    backgroundImage: weatherData
-      ? `url('${getBackgroundImage(weatherData.weather?.[0]?.icon)}')`
-      : "url('/default.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    transition: "0.4s ease",
-  }}
->
-
-=======
       className="min-h-screen flex flex-col items-center justify-center px-6 relative"
       style={{
-        backgroundImage:
-          "url('https://img.freepik.com/premium-vector/sun-shines-blue-sky-with-clouds-green-mountains-with-space-sky-paper-cut-art-craft_1272968-596.jpg?semt=ais_incoming&w=740&q=80')",
+        backgroundImage: weather
+          ? `url('${getBackgroundImage(weather.current.weather?.[0]?.icon)}')`
+          : "url('/default.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        transition: "0.4s ease",
       }}
     >
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-500/50 to-indigo-900/70 backdrop-blur-sm"></div>
 
       <div className="relative z-10 w-full max-w-2xl flex flex-col items-center">
@@ -163,7 +127,6 @@ export default function Home() {
           🌦️ Weather
         </h1>
 
-        {/* Search Box */}
         <div className="flex gap-3 mb-8 bg-white/90 rounded-2xl shadow-lg p-3 w-full">
           <input
             type="text"
@@ -188,21 +151,12 @@ export default function Home() {
 
         {error && <p className="text-red-200 text-center">{error}</p>}
 
-<<<<<<< HEAD
-        {/* FULL WEATHER CARD AREA */}
-        {weatherData && (
-          <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center">
-            
-            {/* Show WeatherCard */}
-            <WeatherCard weather={weatherData} />
-=======
-        {/* Weather Card */}
         {weather && (
           <div className="bg-white/95 backdrop-blur-xl p-8 rounded-3xl shadow-2xl text-center w-full">
-            {/* Current Weather */}
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
               {weather.current.name}, {weather.current.sys?.country}
             </h2>
+
             <p className="text-gray-500 text-sm mb-4">
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
@@ -220,72 +174,54 @@ export default function Home() {
             />
 
             <p className="text-6xl font-bold text-gray-900 mb-2">
-              {Math.round(weather.current.main?.temp)}°C
-            </p>
-            <p className="text-lg text-gray-600 capitalize mb-6">
-              {weather.current.weather?.[0]?.description}
+              {Math.round(weather.current.main.temp)}°C
             </p>
 
-            {/* Extra Info */}
+            <p className="text-lg text-gray-600 capitalize mb-6">
+              {weather.current.weather[0].description}
+            </p>
+
             <div className="grid grid-cols-3 gap-6 mt-6 text-sm text-gray-700 text-center">
               <div className="flex flex-col items-center">
                 <span className="font-medium">Feels Like</span>
-                <div>{Math.round(weather.current.main?.feels_like)}°C</div>
+                <div>{Math.round(weather.current.main.feels_like)}°C</div>
               </div>
               <div className="flex flex-col items-center">
                 <span className="font-medium">Humidity</span>
-                <div>{weather.current.main?.humidity}%</div>
+                <div>{weather.current.main.humidity}%</div>
               </div>
               <div className="flex flex-col items-center">
                 <span className="font-medium">Wind</span>
-                <div>{weather.current.wind?.speed} m/s</div>
+                <div>{weather.current.wind.speed} m/s</div>
               </div>
             </div>
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
 
-            {/* Forecast */}
             <h3 className="text-2xl font-semibold mt-10 mb-4 text-gray-800">
               5-Day Forecast
             </h3>
-<<<<<<< HEAD
-            <div className="grid grid-cols-5 gap-4">
-              {getDailyForecast().map((day: any, i) => (
+
+            <div className="flex justify-center gap-4 flex-wrap">
+              {getDailyForecast(weather.forecast).map((day, i) => (
                 <div
                   key={i}
-                  className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-col items-center shadow"
+                  className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-row items-center gap-2 shadow min-w-[200px]"
                 >
                   <span className="font-medium text-gray-700">
                     {new Date(day.dt_txt).toLocaleDateString("en-US", {
                       weekday: "short",
                     })}
                   </span>
-                  <img
-                    src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
+
+                  <Image
+                    src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                     alt="icon"
+                    width={50}
+                    height={50}
                   />
+
                   <span className="text-gray-900 font-semibold">
-                    {Math.round(day.main?.temp)}°C
+                    {Math.round(day.main.temp)}°C
                   </span>
-=======
-            <div className="flex justify-center gap-4">
-  {getDailyForecast(weather.forecast).map((day, i) => (
-    <div
-      key={i}
-      className="bg-gradient-to-b from-blue-100 to-white rounded-xl p-4 flex flex-row items-center gap-2 shadow min-w-[200px]"
-    >
-      <span className="font-medium text-gray-700">
-        {new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}
-      </span>
-      <Image
-        src={`https://openweathermap.org/img/wn/${day.weather?.[0]?.icon}@2x.png`}
-        alt="icon"
-        width={50}
-        height={50}
-      />
-      <span className="text-gray-900 font-semibold">
-        {Math.round(day.main?.temp)}°C
-     </span>
->>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
                 </div>
               ))}
             </div>
@@ -295,4 +231,3 @@ export default function Home() {
     </div>
   );
 }
-
