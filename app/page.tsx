@@ -36,52 +36,32 @@ interface WeatherData {
 
 const getBackgroundImage = (weatherCode: string) => {
   switch (weatherCode) {
-    // Clear sky
     case "01d":
       return "/sunny.jpg";
     case "01n":
       return "/night.jpg"; // added night image
-
-    // Few clouds / scattered clouds
     case "02d":
-    case "03d":
-      return "/cloudy.jpg";
     case "02n":
+    case "03d":
     case "03n":
-      return "/cloudy-night.jpg"; // optional night variant
-
-    // Broken clouds / overcast
+      return "/cloudy.jpg";
     case "04d":
-      return "/dark-clouds.jpg";
     case "04n":
-      return "/dark-clouds-night.jpg"; // optional night variant
-
-    // Rain
+      return "/dark-clouds.jpg";
     case "09d":
-    case "10d":
-      return "/rainy.jpg";
     case "09n":
+    case "10d":
     case "10n":
-      return "/rainy-night.jpg"; // optional night variant
-
-    // Thunderstorm
+      return "/rainy.jpg";
     case "11d":
-      return "/storm.jpg";
     case "11n":
-      return "/storm-night.jpg"; // optional night variant
-
-    // Snow
+      return "/storm.jpg";
     case "13d":
-      return "/snow.jpg";
     case "13n":
-      return "/snow-night.jpg"; // optional night variant
-
-    // Mist / haze
+      return "/snow.jpg";
     case "50d":
-      return "/haze.jpg";
     case "50n":
-      return "/haze-night.jpg"; // optional night variant
-
+      return "/haze.jpg";
     default:
       return "/default.jpg";
   }
