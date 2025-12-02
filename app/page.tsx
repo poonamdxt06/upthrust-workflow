@@ -36,35 +36,57 @@ interface WeatherData {
 
 const getBackgroundImage = (weatherCode: string) => {
   switch (weatherCode) {
+    // Clear sky
     case "01d":
-    case "01n":
       return "/sunny.jpg";
+    case "01n":
+      return "/night.jpg"; // added night image
+
+    // Few clouds / scattered clouds
     case "02d":
-    case "02n":
     case "03d":
-    case "03n":
       return "/cloudy.jpg";
+    case "02n":
+    case "03n":
+      return "/cloudy-night.jpg"; // optional night variant
+
+    // Broken clouds / overcast
     case "04d":
-    case "04n":
       return "/dark-clouds.jpg";
+    case "04n":
+      return "/dark-clouds-night.jpg"; // optional night variant
+
+    // Rain
     case "09d":
-    case "09n":
     case "10d":
-    case "10n":
       return "/rainy.jpg";
+    case "09n":
+    case "10n":
+      return "/rainy-night.jpg"; // optional night variant
+
+    // Thunderstorm
     case "11d":
-    case "11n":
       return "/storm.jpg";
+    case "11n":
+      return "/storm-night.jpg"; // optional night variant
+
+    // Snow
     case "13d":
-    case "13n":
       return "/snow.jpg";
+    case "13n":
+      return "/snow-night.jpg"; // optional night variant
+
+    // Mist / haze
     case "50d":
-    case "50n":
       return "/haze.jpg";
+    case "50n":
+      return "/haze-night.jpg"; // optional night variant
+
     default:
       return "/default.jpg";
   }
 };
+
 
 export default function Home() {
   const [city, setCity] = useState<string>("");
