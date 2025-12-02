@@ -41,6 +41,7 @@ const getBackgroundImage = (weatherCode: string) => {
       return "/sunny.jpg";
     case "02d":
     case "02n":
+      return "/night.jpg";
     case "03d":
     case "03n":
       return "/cloudy.jpg";
