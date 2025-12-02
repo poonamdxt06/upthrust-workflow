@@ -3,30 +3,113 @@
 @import url('https://unpkg.com/tailwindcss@3.3.3/components.css');
 @import url('https://unpkg.com/tailwindcss@3.3.3/utilities.css');
 
+/* Root variables for light and dark themes */
 :root {
-  --background: #f0e2e2e2;
-  --foreground: #aea5a5;
+  --background: #f9fafb; /* soft light background */
+  --foreground: #1f2937; /* dark gray text */
+  --primary: #4f46e5;    /* primary accent color */
+  --secondary: #f59e0b;  /* secondary accent */
+  --card-bg: #ffffff;     /* card background */
+  --border-color: #e5e7eb; /* subtle borders */
+  --radius: 0.5rem;       /* border radius for elements */
+  --transition-speed: 0.3s; /* smooth transition */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #c98888;
-    --foreground: #080808;
+    --background: #1f1f1f; /* dark background */
+    --foreground: #e5e7eb; /* light text */
+    --primary: #6366f1; 
+    --secondary: #fbbf24;
+    --card-bg: #2a2a2a;
+    --border-color: #374151;
   }
 }
 
+/* Global styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+  transition: background var(--transition-speed), color var(--transition-speed);
 }
+
+/* Smooth link hover effect */
 a {
-  color: inherit;
+  color: var(--primary);
   text-decoration: none;
+  transition: color var(--transition-speed);
 }
+
+a:hover {
+  color: var(--secondary);
+}
+
+/* Global reset for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  transition: all var(--transition-speed);
+}
+
+/* Card styles for UI elements */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+/* Buttons */
+button {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition-speed), transform var(--transition-speed);
+}
+
+button:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+/* Inputs */
+input, textarea, select {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  color: var(--foreground);
+  outline: none;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
