@@ -37,11 +37,11 @@ interface WeatherData {
 const getBackgroundImage = (weatherCode: string) => {
   switch (weatherCode) {
     case "01d":
-      return "/sunny.jpg";
     case "01n":
-      return "/night.jpg"; // added night image
+      return "/sunny.jpg";
     case "02d":
     case "02n":
+      return "/night.jpg";
     case "03d":
     case "03n":
       return "/cloudy.jpg";
