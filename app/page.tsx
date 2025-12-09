@@ -67,6 +67,7 @@ const getBackgroundImage = (weatherCode: string) => {
   }
 };
 
+
 export default function Home() {
   const [city, setCity] = useState<string>("");
   const [weather, setWeather] = useState<WeatherData | null>(null);
