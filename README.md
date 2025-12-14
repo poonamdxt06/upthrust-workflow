@@ -2,12 +2,13 @@
 <<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 =======
- **🌤️ Weather Dashboard**
+ **🌤️ **Weather** 
 >>>>>>> 1baa45f35c181e8c0087d63ce3817f790dd38353
 
 A modern, responsive weather dashboard built with Next.js, TypeScript, and Tailwind CSS that allows users to search any city and get the current weather and a 5-day forecast.
 
 Live Demo: (https://upthrust-workflow.onrender.com)
+Live Demo: (https://weatherio-eosin.vercel.app/)
 
 Features
 
@@ -21,10 +22,7 @@ Features
 
 # ⚡ Loading and error handling for smooth user experience.
 
-Screenshots
 
-
-(Replace with actual screenshot URL)
 
 Technologies Used
 
@@ -66,9 +64,10 @@ Open http://localhost:3000
 
 Deployment
 
-This app can be deployed easily on Render or Vercel:
+This app can be deployed easily on Render and Vercel:
 
 Render url: https://upthrust-workflow.onrender.com 
+Vercel url: https://weatherio-eosin.vercel.app/
 
 # Make sure your environment variables (like API keys) are set on the platform.
 
